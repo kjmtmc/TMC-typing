@@ -11,32 +11,34 @@ body{font-family:'Helvetica Neue',Arial,'Hiragino Kaku Gothic ProN',Meiryo,sans-
 h1{font-size:18px;font-weight:700;color:#fff;text-align:center;margin-bottom:4px;}
 .sub{font-size:11px;color:#666;text-align:center;letter-spacing:.12em;margin-bottom:1.5rem;}
 .stats{display:flex;gap:8px;margin-bottom:0.6rem;}
-.stat{flex:1;background:#222;border-radius:10px;padding:8px 4px;text-align:center;}
-.stat-l{font-size:10px;color:#666;margin-bottom:2px;}
-.stat-v{font-size:16px;font-weight:700;color:#fff;}
-.prog-wrap{height:4px;background:#333;border-radius:2px;margin-bottom:0.6rem;overflow:hidden;}
+.stat{flex:1;background:#222;border-radius:8px;padding:6px 2px;text-align:center;}
+.stat-l{font-size:9px;color:#666;margin-bottom:1px;}
+.stat-v{font-size:14px;font-weight:700;color:#fff;}
+.prog-wrap{height:3px;background:#333;border-radius:2px;margin-bottom:0.5rem;overflow:hidden;}
 .prog-bar{height:100%;background:#ff6600;border-radius:2px;transition:width .3s;}
-.stamp-wrap{display:flex;justify-content:center;margin-top:1rem;margin-bottom:0.5rem;}
-.stamp-img{width:120px;height:120px;object-fit:cover;border-radius:10px;border:3px solid #ff6600;display:block;}
-.stamp-none{width:120px;height:120px;border-radius:10px;border:3px solid #444;background:#222;display:flex;align-items:center;justify-content:center;color:#555;font-size:13px;}
-.phrase-label{font-size:11px;color:#666;margin-bottom:6px;}
-.phrase-box{background:#222;border:2px solid #444;border-radius:12px;padding:.6rem 1rem;margin-bottom:0.75rem;min-height:44px;display:flex;flex-wrap:wrap;align-items:center;font-size:1.25rem;line-height:1.8;color:#fff;font-weight:700;letter-spacing:.05em;}
+.top-row{display:flex;gap:10px;align-items:center;margin-bottom:0.6rem;}
+.stamp-wrap{flex-shrink:0;}
+.stamp-img{width:100px;height:100px;object-fit:cover;border-radius:10px;border:3px solid #ff6600;display:block;}
+.stamp-none{width:100px;height:100px;border-radius:10px;border:3px solid #444;background:#222;display:flex;align-items:center;justify-content:center;color:#555;font-size:12px;}
+.phrase-side{flex:1;min-width:0;}
+.phrase-label{font-size:10px;color:#666;margin-bottom:3px;}
+.phrase-box{background:#222;border:2px solid #444;border-radius:10px;padding:.5rem .8rem;margin-bottom:0;min-height:40px;display:flex;flex-wrap:wrap;align-items:center;font-size:1.1rem;line-height:1.6;color:#fff;font-weight:700;letter-spacing:.03em;}
 #inp{position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;font-size:16px;}
-.input-display{background:#222;border:2px solid #444;border-radius:12px;padding:12px 16px;margin-bottom:8px;min-height:50px;font-size:17px;color:#fff;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;flex-wrap:wrap;word-break:break-all;}
+.input-display{background:#222;border:2px solid #444;border-radius:12px;padding:10px 14px;margin-bottom:6px;min-height:46px;font-size:16px;color:#fff;cursor:pointer;transition:border-color .2s;display:flex;align-items:center;flex-wrap:wrap;word-break:break-all;}
 .input-display.focused{border-color:#ff6600;}
 .input-display.correct{border-color:#2da44e;background:#0d1f12;}
 .input-display.wrong{border-color:#e53e3e;background:#1f0d0d;}
 .placeholder{color:#555;font-size:14px;}
 .cursor-blink{display:inline-block;width:2px;height:1.2em;background:#ff6600;margin-left:2px;vertical-align:middle;animation:blink .8s step-end infinite;}
 @keyframes blink{50%{opacity:0;}}
-.tap-hint{text-align:center;font-size:12px;color:#555;margin-bottom:8px;}
+.tap-hint{text-align:center;font-size:11px;color:#555;margin-bottom:4px;}
 .tap-hint.active{color:#ff6600;}
-.match-status{font-size:14px;min-height:26px;margin-bottom:10px;padding:6px 8px;background:#222;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;gap:1px;}
+.match-status{font-size:13px;min-height:22px;margin-bottom:6px;padding:5px 8px;background:#222;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;gap:1px;}
 .mc{display:inline-block;font-size:15px;font-weight:700;}
 .mc.ok{color:#2da44e;}
 .mc.ng{color:#e53e3e;background:#2d0d0d;border-radius:2px;padding:0 2px;}
 .mc.rest{color:#444;}
-.clear-msg{text-align:center;font-size:24px;font-weight:700;color:#ff6600;padding:8px 0;min-height:44px;}
+.clear-msg{text-align:center;font-size:20px;font-weight:700;color:#ff6600;padding:4px 0;min-height:32px;}
 .btn-row{display:flex;gap:8px;margin-top:4px;}
 button{flex:1;background:#ff6600;color:#fff;border:none;border-radius:10px;padding:13px 16px;font-size:15px;cursor:pointer;font-family:inherit;font-weight:700;-webkit-appearance:none;touch-action:manipulation;}
 button:active{opacity:.8;}
@@ -69,8 +71,13 @@ button.sec{background:#222;color:#aaa;border:1.5px solid #333;}
       <div class="stat"><div class="stat-l">ミス</div><div class="stat-v"><span id="s-miss">0</span></div></div>
     </div>
     <div class="prog-wrap"><div class="prog-bar" id="prog" style="width:0%"></div></div>
-    <div class="phrase-label">▼ お手本</div>
-    <div class="phrase-box" id="phrase"></div>
+    <div class="top-row">
+      <div class="stamp-wrap" id="stamp-wrap"></div>
+      <div class="phrase-side">
+        <div class="phrase-label">▼ お手本</div>
+        <div class="phrase-box" id="phrase"></div>
+      </div>
+    </div>
     <div class="input-display" id="input-display">
       <span class="placeholder" id="inp-ph">タップして入力開始…</span>
       <span id="inp-text"></span>
@@ -82,7 +89,6 @@ button.sec{background:#222;color:#aaa;border:1.5px solid #333;}
     <div class="btn-row">
       <button class="sec" id="btn-skip">スキップ</button>
     </div>
-    <div class="stamp-wrap" id="stamp-wrap"></div>
   </div>
 
   <div class="result-screen" id="scr-result" style="display:none">
@@ -206,7 +212,7 @@ function focusInp(){
       const rect = el.getBoundingClientRect();
       const scrollY = window.scrollY;
       // input-displayの直上にお手本とstatsが収まる位置
-      const target = rect.top + scrollY - statsH - 200;
+      const target = rect.top + scrollY - statsH - 180;
       window.scrollTo({top: Math.max(0, target), behavior:'smooth'});
     }
   },400);
