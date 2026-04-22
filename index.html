@@ -278,12 +278,17 @@ function renderMatch(norm,target){
 }
 
 function nextPhrase(){
-  pIdx++;inp.value='';IT.textContent='';IP.style.display='';prevN='';
+  pIdx++;
+  // 入力欄を完全リセット
+  inp.blur();
+  inp.value='';
+  IT.textContent='';IP.style.display='';prevN='';
   document.getElementById('clear-msg').textContent='';
   document.getElementById('match-status').innerHTML='';
   if(pIdx>=PHRASES.length){endGame();return;}
   loadPhrase();
-  inp.focus();
+  // 少し待ってからフォーカス（DOMが更新された後）
+  setTimeout(()=>{inp.value='';inp.focus();},50);
 }
 
 function skipPhrase(){
