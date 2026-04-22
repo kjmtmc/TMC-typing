@@ -198,6 +198,14 @@ const TH=document.getElementById('tap-hint');
 
 function focusInp(){
   document.getElementById('inp').focus();
+  setTimeout(()=>{
+    const el=document.getElementById('input-display');
+    if(el){
+      const rect=el.getBoundingClientRect();
+      const offset=rect.top+window.scrollY-120;
+      window.scrollTo({top:offset,behavior:'smooth'});
+    }
+  },400);
 }
 document.getElementById('card').addEventListener('click',e=>{if(active&&e.target.tagName!=='BUTTON')document.getElementById('inp').focus();});
 inp.addEventListener('focus',()=>{ID.classList.add('focused');CUR.style.display='inline-block';IP.style.display='none';TH.classList.add('active');TH.textContent='⌨️ 入力中…';});
